@@ -15,10 +15,13 @@ const Session = () => {
     console.log(e, workoutName);
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/workouts", {
-        SessionId: 1,
-        WorkoutName: workoutName,
-      });
+      const response = await axios.post(
+        "https://workout-tracker.13059596.xyz/workouts",
+        {
+          SessionId: 1,
+          WorkoutName: workoutName,
+        }
+      );
       console.log("yoyo", response.status);
       if (response.status === 200) {
         setData(response.data);
@@ -47,7 +50,9 @@ const Session = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/workouts/1");
+        const response = await axios.get(
+          "https://workout-tracker.13059596.xyz/workouts/1"
+        );
         console.log("yoyo", response.status);
         if (response.status === 200) {
           setData(response.data);

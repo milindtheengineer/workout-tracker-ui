@@ -14,7 +14,9 @@ const Workout = (props) => {
 
   const fetchData = async (wktID) => {
     try {
-      const response = await axios.get("http://localhost:8080/sets/" + wktID);
+      const response = await axios.get(
+        "https://workout-tracker.13059596.xyz/sets/" + wktID
+      );
       console.log("yoyo", response.status);
       if (response.status === 200) {
         setData(response.data);
@@ -44,11 +46,14 @@ const Workout = (props) => {
     console.log(e, weight, reps, workoutId);
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/sets", {
-        WorkoutID: workoutId,
-        NumberOfReps: parseInt(reps, 10),
-        Weight: parseFloat(weight),
-      });
+      const response = await axios.post(
+        "https://workout-tracker.13059596.xyz/sets",
+        {
+          WorkoutID: workoutId,
+          NumberOfReps: parseInt(reps, 10),
+          Weight: parseFloat(weight),
+        }
+      );
       console.log("yoyo", response.status);
       if (response.status === 200) {
         console.log("Successful");
