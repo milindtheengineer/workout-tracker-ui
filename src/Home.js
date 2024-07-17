@@ -80,22 +80,25 @@ const Home = () => {
     fetchData();
   }, []);
   if (err) return <div>Error: {err}</div>;
-  if (!data) return <div>Loading...</div>;
   return (
     <div className="home">
       <button className="add-session" onClick={(e) => addSession(e)}>
         New Workout Session
       </button>
-      {data.map((session) => (
-        <Link
-          className="session-item"
-          key={session.Id}
-          to={`/session/${session.Id}?userId=1`}
-        >
-          <h2>{formatDate(session.DateTime)}</h2>
-          <h2>{formatTime(session.DateTime)}</h2>
-        </Link>
-      ))}
+      {data != null ? (
+        data.map((session) => (
+          <Link
+            className="session-item"
+            key={session.Id}
+            to={`/session/${session.Id}?userId=1`}
+          >
+            <h2>{formatDate(session.DateTime)}</h2>
+            <h2>{formatTime(session.DateTime)}</h2>
+          </Link>
+        ))
+      ) : (
+        <h2></h2>
+      )}
     </div>
   );
 };
