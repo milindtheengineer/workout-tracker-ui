@@ -11,14 +11,13 @@ const Session = () => {
   const [data, setData] = useState(null);
   const [err, setError] = useState(null);
   const [workoutValue, setWorkoutValue] = useState("");
-  console.log(userId);
   const handleInputChange = (event) => {
     setWorkoutValue(event.target.value);
   };
 
   const addWorkout = async (e, workoutName, sessionId, userId) => {
-    console.log(e, workoutName, sessionId);
     e.preventDefault();
+    let alerted = false;
     try {
       const response = await axios.post(
         "https://workout-tracker-server.13059596.xyz/workouts",
@@ -28,18 +27,17 @@ const Session = () => {
           UserID: parseInt(userId, 10),
         }
       );
-      console.log("yoyo", response.status);
       if (response.status === 200) {
         fetchData(sessionId);
       } else {
         setError(`Unexpected status code: ${response.status}`);
       }
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
+      if (error.response?.status === 409) {
+        alert("Workout already exists in current session");
+      } else if (error.response) {
         setError(
-          `Error ${error.response.status}: ${
+          `Error ${error.response.status}: lalala ${
             error.response.data.message || "Unknown error"
           }`
         );
@@ -58,7 +56,6 @@ const Session = () => {
       const response = await axios.get(
         "https://workout-tracker-server.13059596.xyz/workouts/" + sessionId
       );
-      console.log("yoyo", response.status);
       if (response.status === 200) {
         setData(response.data);
       } else {
@@ -97,9 +94,8 @@ const Session = () => {
           value={workoutValue}
           onChange={handleInputChange}
           placeholder="Enter workout"
-          // style={{ marginRight: '10px' }} // Optional: Add some styling
         />
-        <button type="submit">Submit</button>
+        <button type="submit">New Workout</button>
       </form>
       {data.map((workout) => (
         <Workout

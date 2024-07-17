@@ -17,7 +17,6 @@ const Home = () => {
   };
 
   const addSession = async (e) => {
-    console.log(e);
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -26,9 +25,7 @@ const Home = () => {
           UserID: 1,
         }
       );
-      console.log("yoyo", response.status);
       if (response.status === 200) {
-        console.log("Successful");
         fetchData();
       } else {
         setError(`Unexpected status code: ${response.status}`);
@@ -56,7 +53,6 @@ const Home = () => {
       const response = await axios.get(
         "https://workout-tracker-server.13059596.xyz/sessions/1"
       );
-      console.log("yoyo", response.status);
       if (response.status === 200) {
         setData(response.data);
       } else {

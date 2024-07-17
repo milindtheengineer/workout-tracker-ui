@@ -21,7 +21,6 @@ const Workout = (props) => {
       const response = await axios.get(
         "https://workout-tracker-server.13059596.xyz/sets/" + wktID
       );
-      console.log("yoyo", response.status);
       if (response.status === 200) {
         setData(response.data);
       } else {
@@ -58,7 +57,6 @@ const Workout = (props) => {
           "/" +
           workoutName
       );
-      console.log("yoyo", response.status);
       if (response.status === 200) {
         setLastSessionData(response.data);
       } else {
@@ -84,7 +82,6 @@ const Workout = (props) => {
   };
 
   const addSet = async (e, weight, reps, workoutId) => {
-    console.log(e, weight, reps, workoutId);
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -95,9 +92,7 @@ const Workout = (props) => {
           Weight: parseFloat(weight),
         }
       );
-      console.log("yoyo", response.status);
       if (response.status === 200) {
-        console.log("Successful");
         fetchData(workoutId);
         setNumberOfSets(data.length);
       } else {
