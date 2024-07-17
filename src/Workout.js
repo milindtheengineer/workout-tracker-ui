@@ -5,8 +5,8 @@ import Collapsible from "react-collapsible";
 import "./workout.css";
 
 const Workout = (props) => {
-  const [weight, setWeight] = useState(0);
-  const [reps, setReps] = useState(0);
+  const [weight, setWeight] = useState("");
+  const [reps, setReps] = useState("");
   const [numberOfSets, setNumberOfSets] = useState(props.numberOfSets);
   const [err, setError] = useState(null);
   const [data, setData] = useState(props.sets);
@@ -82,6 +82,9 @@ const Workout = (props) => {
   };
 
   const addSet = async (e, weight, reps, workoutId) => {
+    if (weight <= 0 || reps <= 0) {
+      alert("Weight or reps cannot be zero or empty");
+    }
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -95,6 +98,8 @@ const Workout = (props) => {
       if (response.status === 200) {
         fetchData(workoutId);
         setNumberOfSets(data.length);
+        setWeight("");
+        setReps("");
       } else {
         setError(`Unexpected status code: ${response.status}`);
       }
@@ -138,7 +143,7 @@ const Workout = (props) => {
             placeholder="Enter reps"
             // style={{ marginRight: '10px' }} // Optional: Add some styling
           />
-          <button type="submit">Submit</button>
+          <button type="submit">Add</button>
         </form>
 
         <h3>Current session</h3>
@@ -171,7 +176,7 @@ const Workout = (props) => {
             </table>
           </div>
         ) : (
-          <p>No last session</p>
+          <p>No last session data available to show</p>
         )}
       </Collapsible>
     </div>
