@@ -1,6 +1,8 @@
 import Set from "./Set";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Collapsible from "react-collapsible";
+import "./workout.css";
 
 const Workout = (props) => {
   const [weight, setWeight] = useState(0);
@@ -16,7 +18,9 @@ const Workout = (props) => {
 
   const fetchData = async (wktID) => {
     try {
-      const response = await axios.get("http://localhost:8080/sets/" + wktID);
+      const response = await axios.get(
+        "https://workout-tracker-server.13059596.xyz/sets/" + wktID
+      );
       console.log("yoyo", response.status);
       if (response.status === 200) {
         setData(response.data);
@@ -49,7 +53,10 @@ const Workout = (props) => {
   const getLastWorkoutId = async (userId, workoutName) => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/lastworkout/" + userId + "/" + workoutName
+        "https://workout-tracker-server.13059596.xyz/lastworkout/" +
+          userId +
+          "/" +
+          workoutName
       );
       console.log("yoyo", response.status);
       if (response.status === 200) {
@@ -80,11 +87,14 @@ const Workout = (props) => {
     console.log(e, weight, reps, workoutId);
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/sets", {
-        WorkoutID: workoutId,
-        NumberOfReps: parseInt(reps, 10),
-        Weight: parseFloat(weight),
-      });
+      const response = await axios.post(
+        "https://workout-tracker-server.13059596.xyz/sets",
+        {
+          WorkoutID: workoutId,
+          NumberOfReps: parseInt(reps, 10),
+          Weight: parseFloat(weight),
+        }
+      );
       console.log("yoyo", response.status);
       if (response.status === 200) {
         console.log("Successful");
@@ -116,50 +126,59 @@ const Workout = (props) => {
 
   return (
     <div className="workout-tab">
-      <h2>Workout name {workoutName}</h2>
-      <p>Number of Sets {numberOfSets}</p>
-      <table className="set-list">
-        <tr>
-          <th>Weight</th>
-          <th>Number of Reps</th>
-        </tr>
-        {data.map((set) => (
-          <tr key={set.Id}>
-            <td>{set.Weight}</td>
-            <td>{set.NumberOfReps}</td>
+      <Collapsible trigger={workoutName} class="collapse">
+        <h3>Add set</h3>
+        <form onSubmit={(e) => addSet(e, weight, reps, workoutId)}>
+          <input
+            type="number"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            placeholder="Enter weight"
+            // style={{ marginRight: '10px' }} // Optional: Add some styling
+          />
+          <input
+            type="number"
+            value={reps}
+            onChange={(e) => setReps(e.target.value)}
+            placeholder="Enter reps"
+            // style={{ marginRight: '10px' }} // Optional: Add some styling
+          />
+          <button type="submit">Submit</button>
+        </form>
+
+        <h3>Current session</h3>
+        <table className="set-list">
+          <tr>
+            <th>Weight</th>
+            <th>Number of Reps</th>
           </tr>
-        ))}
-      </table>
-      <form onSubmit={(e) => addSet(e, weight, reps, workoutId)}>
-        <input
-          type="number"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-          placeholder="Enter weight"
-          // style={{ marginRight: '10px' }} // Optional: Add some styling
-        />
-        <input
-          type="number"
-          value={reps}
-          onChange={(e) => setReps(e.target.value)}
-          placeholder="Enter reps"
-          // style={{ marginRight: '10px' }} // Optional: Add some styling
-        />
-        <button type="submit">Submit</button>
-      </form>
-      {lastSessionData != null ? (
-        <div className="last-session">
-          <h2>Last session</h2>
-          <p>Number of Sets {lastSessionData.length}</p>
-          <div className="set-list">
-            {lastSessionData.map((set) => (
-              <Set className="setView" key={set.Id} set={set} />
-            ))}
+          {data.map((set) => (
+            <tr key={set.Id}>
+              <td>{set.Weight}</td>
+              <td>{set.NumberOfReps}</td>
+            </tr>
+          ))}
+        </table>
+        {lastSessionData != null ? (
+          <div className="workout-tab">
+            <h3>Last session</h3>
+            <table className="set-list">
+              <tr>
+                <th>Weight</th>
+                <th>Number of Reps</th>
+              </tr>
+              {lastSessionData.map((set) => (
+                <tr key={set.Id}>
+                  <td>{set.Weight}</td>
+                  <td>{set.NumberOfReps}</td>
+                </tr>
+              ))}
+            </table>
           </div>
-        </div>
-      ) : (
-        <p>No last session</p>
-      )}
+        ) : (
+          <p>No last session</p>
+        )}
+      </Collapsible>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Workout from "./Workout";
+import "./workout.css";
 
 const Session = () => {
   const { sessionId } = useParams();
@@ -19,11 +20,14 @@ const Session = () => {
     console.log(e, workoutName, sessionId);
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/workouts", {
-        SessionID: parseInt(sessionId, 10),
-        WorkoutName: workoutName,
-        UserID: parseInt(userId, 10),
-      });
+      const response = await axios.post(
+        "https://workout-tracker-server.13059596.xyz/workouts",
+        {
+          SessionID: parseInt(sessionId, 10),
+          WorkoutName: workoutName,
+          UserID: parseInt(userId, 10),
+        }
+      );
       console.log("yoyo", response.status);
       if (response.status === 200) {
         fetchData(sessionId);
@@ -52,7 +56,7 @@ const Session = () => {
   const fetchData = async (sessionId) => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/workouts/" + sessionId
+        "https://workout-tracker-server.13059596.xyz/workouts/" + sessionId
       );
       console.log("yoyo", response.status);
       if (response.status === 200) {

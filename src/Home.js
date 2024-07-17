@@ -6,13 +6,26 @@ const Home = () => {
   const [data, setData] = useState(null);
   const [err, setError] = useState(null);
 
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const formatTime = (dateString) => {
+    const options = { hour: "numeric", hour12: true };
+    return new Date(dateString).toLocaleTimeString(undefined, options);
+  };
+
   const addSession = async (e) => {
     console.log(e);
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/sessions", {
-        UserID: 1,
-      });
+      const response = await axios.post(
+        "https://workout-tracker-server.13059596.xyz/sessions",
+        {
+          UserID: 1,
+        }
+      );
       console.log("yoyo", response.status);
       if (response.status === 200) {
         console.log("Successful");
@@ -40,7 +53,9 @@ const Home = () => {
   };
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/sessions/1");
+      const response = await axios.get(
+        "https://workout-tracker-server.13059596.xyz/sessions/1"
+      );
       console.log("yoyo", response.status);
       if (response.status === 200) {
         setData(response.data);
@@ -68,20 +83,22 @@ const Home = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
   if (err) return <div>Error: {err}</div>;
   if (!data) return <div>Loading...</div>;
   return (
     <div className="home">
       <button className="add-session" onClick={(e) => addSession(e)}>
-        Add Session
+        New Workout Session
       </button>
       {data.map((session) => (
-        <div className="session-item" key={session.Id}>
-          <Link to={`/session/${session.Id}?userId=1`}>
-            <h2>{session.DateTime}</h2>
-          </Link>
-        </div>
+        <Link
+          className="session-item"
+          key={session.Id}
+          to={`/session/${session.Id}?userId=1`}
+        >
+          <h2>{formatDate(session.DateTime)}</h2>
+          <h2>{formatTime(session.DateTime)}</h2>
+        </Link>
       ))}
     </div>
   );

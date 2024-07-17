@@ -1,0 +1,155 @@
+.workout-list {
+    /* Encapsulating the CSS rules within the .workout-tab selector */
+    margin: 10px;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+
+  }
+
+.workout-tab {
+    /* Encapsulating the CSS rules within the .workout-tab selector */
+    * {
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    
+    font-family: 'Nunito', sans-serif;
+    color: #384047;
+  }
+  
+  table {
+    background: #012B39;
+    border-radius: 0.25em;
+    border-collapse: collapse;
+    width: 96%;
+    margin: 10px;
+
+  }
+  th {
+    border-bottom: 1px solid #364043;
+    color: #E2B842;
+    font-size: 0.85em;
+    font-weight: 600;
+    padding: 0.5em 1em;
+    text-align: center;
+  }
+  td {
+    color: #fff;
+    font-weight: 400;
+    padding: 0.65em 1em;
+    text-align: center;
+  }
+  .disabled td {
+    color: #4F5F64;
+  }
+  tbody tr {
+    transition: background 0.25s ease;
+  }
+  tbody tr:hover {
+    background: #014055;
+  }
+  
+  .workout-list form {
+    /* max-width: 300px; */
+    margin: 10px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  .workout-list input[type="text"],
+  .workout-tab input[type="password"],
+  .workout-tab input[type="date"],
+  .workout-tab input[type="datetime"],
+  .workout-tab input[type="email"],
+  .workout-tab input[type="number"],
+  .workout-tab input[type="search"],
+  .workout-tab input[type="tel"],
+  .workout-tab input[type="time"],
+  .workout-tab input[type="url"],
+  .workout-tab textarea,
+  .workout-tab select {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    font-size: 16px;
+    height: auto;
+    margin: 0;
+    outline: 0;
+    padding: 15px;
+    width: 100%;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+  }
+  
+  .workout-tab input[type="radio"],
+  .workout-tab input[type="checkbox"] {
+    margin: 0 4px 8px 0;
+  }
+  
+  .workout-tab select {
+    padding: 6px;
+    height: 32px;
+    border-radius: 2px;
+  }
+  
+  .workout-list button {
+    color: #FFF;
+    background-color: #4bc970;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    border-radius: 5px;
+    height: 50px;
+    width: 80%;
+    border: 1px solid #3ac162;
+    border-width: 1px 1px 3px;
+    box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+    margin-bottom: 10px;
+  }
+  
+  .workout-tab fieldset {
+    margin-bottom: 30px;
+    border: none;
+  }
+  
+  .workout-tab legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+  }
+  
+  .workout-tab label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .workout-tab label.light {
+    font-weight: 300;
+    display: inline;
+  }
+  
+  .workout-tab .number {
+    background-color: #5fcf80;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 100%;
+  }
+  
+  @media screen and (min-width: 480px) {
+    .workout-list {
+      max-width: 480px;
+    }
+  }
+  
