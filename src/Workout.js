@@ -84,6 +84,7 @@ const Workout = (props) => {
   const addSet = async (e, weight, reps, workoutId) => {
     if (weight <= 0 || reps <= 0) {
       alert("Weight or reps cannot be zero or empty");
+      return;
     }
     e.preventDefault();
     try {

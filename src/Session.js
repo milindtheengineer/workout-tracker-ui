@@ -17,7 +17,6 @@ const Session = () => {
 
   const addWorkout = async (e, workoutName, sessionId, userId) => {
     e.preventDefault();
-    let alerted = false;
     try {
       const response = await axios.post(
         "https://workout-tracker-server.13059596.xyz/workouts",
