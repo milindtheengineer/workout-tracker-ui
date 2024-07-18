@@ -82,43 +82,43 @@ const Workout = (props) => {
   };
 
   const addSet = async (e, weight, reps, workoutId) => {
+    e.preventDefault();
     if (weight <= 0 || reps <= 0) {
       alert("Weight or reps cannot be zero or empty");
-      return;
-    }
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://workout-tracker-server.13059596.xyz/sets",
-        {
-          WorkoutID: workoutId,
-          NumberOfReps: parseInt(reps, 10),
-          Weight: parseFloat(weight),
-        }
-      );
-      if (response.status === 200) {
-        fetchData(workoutId);
-        setNumberOfSets(data.length);
-        setWeight("");
-        setReps("");
-      } else {
-        setError(`Unexpected status code: ${response.status}`);
-      }
-    } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        setError(
-          `Error ${error.response.status}: ${
-            error.response.data.message || "Unknown error"
-          }`
+    } else {
+      try {
+        const response = await axios.post(
+          "https://workout-tracker-server.13059596.xyz/sets",
+          {
+            WorkoutID: workoutId,
+            NumberOfReps: parseInt(reps, 10),
+            Weight: parseFloat(weight),
+          }
         );
-      } else if (error.request) {
-        // The request was made but no response was received
-        setError("No response received from server");
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        setError(`Error: ${error.message}`);
+        if (response.status === 200) {
+          fetchData(workoutId);
+          setNumberOfSets(data.length);
+          setWeight("");
+          setReps("");
+        } else {
+          setError(`Unexpected status code: ${response.status}`);
+        }
+      } catch (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          setError(
+            `Error ${error.response.status}: ${
+              error.response.data.message || "Unknown error"
+            }`
+          );
+        } else if (error.request) {
+          // The request was made but no response was received
+          setError("No response received from server");
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          setError(`Error: ${error.message}`);
+        }
       }
     }
   };
