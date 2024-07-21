@@ -5,6 +5,7 @@ import NotFound from "./NotFound";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Session from "./Session";
 import Home from "./Home";
+import Login from "./Login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/session/:sessionId" element={<Session />} />
             <Route path="/about" element={<About />} />
             {/* Define other routes here */}

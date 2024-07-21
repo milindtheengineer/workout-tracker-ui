@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import axios from "axios";
+import axios from "./axiosConfig";
 import Workout from "./Workout";
 import "./workout.css";
 

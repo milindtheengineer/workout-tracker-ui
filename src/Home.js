@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "./axiosConfig";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -53,6 +53,7 @@ const Home = () => {
       const response = await axios.get(
         "https://workout-tracker-server.13059596.xyz/sessions/1"
       );
+      console.log("yay", response);
       if (response.status === 200) {
         setData(response.data);
       } else {

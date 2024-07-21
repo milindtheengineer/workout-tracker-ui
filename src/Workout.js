@@ -1,5 +1,5 @@
 import Set from "./Set";
-import axios from "axios";
+import axios from "./axiosConfig";
 import React, { useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
 import "./workout.css";
