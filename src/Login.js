@@ -1,20 +1,22 @@
 import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "./axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const responseMessage = async (lala) => {
-    console.log(lala);
+  const navigate = useNavigate();
+  const responseMessage = async (req) => {
     try {
       const response = await axios.post(
         "https://workout-tracker-server.13059596.xyz/login",
-        lala,
+        req,
         {
           withCredentials: true,
         }
       );
       if (response.status === 200) {
         console.log("good");
+        navigate("/");
       } else {
         console.log("totally screwed 1");
       }
@@ -33,7 +35,7 @@ const Login = () => {
     }
   };
   const errorMessage = (error) => {
-    console.log(error);
+    return <div>Login failed</div>;
   };
   return (
     <div>

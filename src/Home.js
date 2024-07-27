@@ -27,6 +27,10 @@ const Home = () => {
       );
       if (response.status === 200) {
         fetchData();
+      } else if (response.status === 401) {
+        setError(
+          `You don't seem to be authenticated. Please use the login link about to login to your account`
+        );
       } else {
         setError(`Unexpected status code: ${response.status}`);
       }
@@ -34,6 +38,12 @@ const Home = () => {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
+        if (error.response.status && error.response.status === "401") {
+          setError(
+            `You don't seem to be authenticated. Please use the login link about to login to your account`
+          );
+          return;
+        }
         setError(
           `Error ${error.response.status}: ${
             error.response.data.message || "Unknown error"
@@ -61,8 +71,15 @@ const Home = () => {
       }
     } catch (error) {
       if (error.response) {
+        console.log("error", error.response);
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
+        if (error.response.status && error.response.status === 401) {
+          setError(
+            `You don't seem to be authenticated. Please use the login link above to login to your account`
+          );
+          return;
+        }
         setError(
           `Error ${error.response.status}: ${
             error.response.data.message || "Unknown error"
@@ -80,7 +97,7 @@ const Home = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  if (err) return <div>Error: {err}</div>;
+  if (err) return <div>{err}</div>;
   return (
     <div className="home">
       <button className="add-session" onClick={(e) => addSession(e)}>
