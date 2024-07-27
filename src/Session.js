@@ -23,7 +23,6 @@ const Session = () => {
         {
           SessionID: parseInt(sessionId, 10),
           WorkoutName: workoutName,
-          UserID: parseInt(userId, 10),
         }
       );
       if (response.status === 200) {

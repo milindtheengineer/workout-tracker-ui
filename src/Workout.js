@@ -52,10 +52,7 @@ const Workout = (props) => {
   const getLastWorkoutId = async (userId, workoutName) => {
     try {
       const response = await axios.get(
-        "https://workout-tracker-server.13059596.xyz/lastworkout/" +
-          userId +
-          "/" +
-          workoutName
+        "https://workout-tracker-server.13059596.xyz/lastworkout/" + workoutName
       );
       if (response.status === 200) {
         setLastSessionData(response.data);

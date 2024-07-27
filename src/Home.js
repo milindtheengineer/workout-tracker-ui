@@ -20,10 +20,7 @@ const Home = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://workout-tracker-server.13059596.xyz/sessions",
-        {
-          UserID: 1,
-        }
+        "https://workout-tracker-server.13059596.xyz/sessions"
       );
       if (response.status === 200) {
         fetchData();
@@ -61,7 +58,7 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://workout-tracker-server.13059596.xyz/sessions/1"
+        "https://workout-tracker-server.13059596.xyz/sessions"
       );
       console.log("yay", response);
       if (response.status === 200) {
