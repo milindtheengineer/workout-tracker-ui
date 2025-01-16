@@ -19,7 +19,7 @@ const Workout = (props) => {
   const fetchData = async (wktID) => {
     try {
       const response = await axios.get(
-        "https://workout-tracker-server.13059596.xyz/sets/" + wktID
+        "https://workout-tracker-server.milindjuttiga.com/sets/" + wktID
       );
       if (response.status === 200) {
         setData(response.data);
@@ -52,7 +52,8 @@ const Workout = (props) => {
   const getLastWorkoutId = async (userId, workoutName) => {
     try {
       const response = await axios.get(
-        "https://workout-tracker-server.13059596.xyz/lastworkout/" + workoutName
+        "https://workout-tracker-server.milindjuttiga.com/lastworkout/" +
+          workoutName
       );
       if (response.status === 200) {
         setLastSessionData(response.data);
@@ -85,7 +86,7 @@ const Workout = (props) => {
     } else {
       try {
         const response = await axios.post(
-          "https://workout-tracker-server.13059596.xyz/sets",
+          "https://workout-tracker-server.milindjuttiga.com/sets",
           {
             WorkoutID: workoutId,
             NumberOfReps: parseInt(reps, 10),

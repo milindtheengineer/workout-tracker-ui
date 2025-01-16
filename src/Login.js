@@ -8,7 +8,7 @@ const Login = () => {
   const responseMessage = async (req) => {
     try {
       const response = await axios.post(
-        "https://workout-tracker-server.13059596.xyz/login",
+        "https://workout-tracker-server.milindjuttiga.com/login",
         req,
         {
           withCredentials: true,

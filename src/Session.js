@@ -19,7 +19,7 @@ const Session = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://workout-tracker-server.13059596.xyz/workouts",
+        "https://workout-tracker-server.milindjuttiga.com/workouts",
         {
           SessionID: parseInt(sessionId, 10),
           WorkoutName: workoutName,
@@ -52,7 +52,7 @@ const Session = () => {
   const fetchData = async (sessionId) => {
     try {
       const response = await axios.get(
-        "https://workout-tracker-server.13059596.xyz/workouts/" + sessionId
+        "https://workout-tracker-server.milindjuttiga.com/workouts/" + sessionId
       );
       if (response.status === 200) {
         setData(response.data);
